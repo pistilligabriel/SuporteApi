@@ -24,13 +24,6 @@ public class ChamadoController {
 
     @PostMapping
     public ResponseEntity<ResponseChamadoDto> criarChamado(@RequestBody CreateChamadoDto chamadoDto){
-        if (chamadoDto.getPrioridade() == null){
-            chamadoDto.setPrioridade("NORMAL");
-        }
-        //verificar se foi informado responsável se não foi, setar usuário que abriu chamado como responsável
-        if(chamadoDto.getResponsavel() == null || chamadoDto.getResponsavel().isBlank()){
-            chamadoDto.setResponsavel("Usuario1");
-        }
         Chamado cham = chamadoService.salvar(ChamadoMapper.toChamado(chamadoDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(ChamadoMapper.toDto(cham));
     }
@@ -43,25 +36,24 @@ public class ChamadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Chamado> getChamadoById(@PathVariable Long id){
+    public ResponseEntity<ResponseChamadoDto> getChamadoById(@PathVariable Long id){
         Chamado cham = chamadoService.buscarPorId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(cham);
+        return ResponseEntity.status(HttpStatus.OK).body(ChamadoMapper.toDto(cham));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Chamado> editarStatusChamado(@PathVariable Long id, @RequestBody Chamado chamado){
+    @PatchMapping("status/{id}")
+    public ResponseEntity<ResponseChamadoDto> editarStatusChamado(@PathVariable Long id, @RequestBody Chamado chamado){
         Chamado cham = chamadoService.editarStatusChamado(id,chamado.getStatus());
-        return ResponseEntity.status(HttpStatus.OK).body(cham);
+        return ResponseEntity.status(HttpStatus.OK).body(ChamadoMapper.toDto(cham));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Chamado> editarChamado(@PathVariable Long id, @RequestBody Chamado chamado){
         Chamado cham = chamadoService.editarChamado(id);
-
         return ResponseEntity.status(HttpStatus.OK).body(cham);
     }
 
-    @PutMapping("/cancelar/{id}")
+    @PatchMapping("/cancelar/{id}")
     public ResponseEntity<Chamado> cancelarChamado(@PathVariable Long id){
         Chamado chamado = chamadoService.cancelarChamado(id);
         return ResponseEntity.status(HttpStatus.OK).body(chamado);

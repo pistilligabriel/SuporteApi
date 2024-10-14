@@ -15,5 +15,6 @@ public class ResponseChamadoDto {
     private String descricao;
     private String prioridade;
     private String status;
+    private String responsavel;
     private LocalDateTime dataCriacao;
 }
