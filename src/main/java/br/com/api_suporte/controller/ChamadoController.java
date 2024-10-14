@@ -36,10 +36,10 @@ public class ChamadoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Chamado>> getAllChamado(){
+    public ResponseEntity<List<ResponseChamadoDto>> getAllChamado(){
         List<Chamado> cham = chamadoService.buscarTodos();
 
-        return ResponseEntity.status(HttpStatus.OK).body(cham);
+        return ResponseEntity.status(HttpStatus.OK).body(ChamadoMapper.toListDto(cham));
     }
 
     @GetMapping("/{id}")
@@ -50,16 +50,20 @@ public class ChamadoController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Chamado> editarStatusChamado(@PathVariable Long id, @RequestBody Chamado chamado){
-        Chamado cham = chamadoService.editarStatusChamado(id,chamado.getStatus(), chamado.getDataVersao());
+        Chamado cham = chamadoService.editarStatusChamado(id,chamado.getStatus());
         return ResponseEntity.status(HttpStatus.OK).body(cham);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Chamado> editarChamado(@PathVariable Long id, @RequestBody Chamado chamado){
         Chamado cham = chamadoService.editarChamado(id);
-        if (cham.getStatus() == Status.CANCELADO){
-            throw new RuntimeException("Não é possível editar chamado com status CANCELADO");
-        }
+
         return ResponseEntity.status(HttpStatus.OK).body(cham);
+    }
+
+    @PutMapping("/cancelar/{id}")
+    public ResponseEntity<Chamado> cancelarChamado(@PathVariable Long id){
+        Chamado chamado = chamadoService.cancelarChamado(id);
+        return ResponseEntity.status(HttpStatus.OK).body(chamado);
     }
 }

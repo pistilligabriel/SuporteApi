@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,37 +18,37 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chamado {
+public class Chamado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo")
+    @Column(name = "CODIGO")
     private Long codigo;
 
-    @Column(name = "titulo")
+    @Column(name = "TITULO")
     private String titulo;
 
-    @Column(name = "descricao")
+    @Column(name = "DESCRICAO")
     private String descricao;
 
-    @Column(name = "responsavel")
+    @Column(name = "RESPONSAVEL")
     private String responsavel;
 
-    @Column(name = "prioridade")
+    @Column(name = "PRIORIDADE")
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade = Prioridade.NORMAL;
 
-    @Column(name = "status")
+    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOVO;
 
-    @Column(name = "dataCriacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    @Column(name = "dataVersao")
+    @Column(name = "DATA_VERSAO")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dataVersao = LocalDateTime.now() ;
 
-    @Column(name = "dataConclusao")
+    @Column(name = "DATA_CONCLUSAO")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dataConclusao;
 
