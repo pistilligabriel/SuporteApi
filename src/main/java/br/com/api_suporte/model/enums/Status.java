@@ -7,7 +7,9 @@ public enum Status {
     NOVO("Novo"),
     EM_ANDAMENTO("Em_Andamento"),
     CONCLUIDO("Concluido"),
-    CANCELADO("Cancelado");
+    CANCELADO("Cancelado"),
+    ATIVO("Ativo"),
+    DESATIVADO("Desativado");
 
     private final String descricao;
 

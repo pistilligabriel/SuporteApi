@@ -1,13 +1,10 @@
 package br.com.api_suporte.controller;
 
-import br.com.api_suporte.dto.CreateChamadoDto;
-import br.com.api_suporte.dto.ResponseChamadoDto;
+import br.com.api_suporte.dto.Chamado.CreateChamadoDto;
+import br.com.api_suporte.dto.Chamado.ResponseChamadoDto;
 import br.com.api_suporte.dto.modelMapper.ChamadoMapper;
 import br.com.api_suporte.model.Chamado;
-import br.com.api_suporte.model.enums.Prioridade;
-import br.com.api_suporte.model.enums.Status;
 import br.com.api_suporte.service.ChamadoService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

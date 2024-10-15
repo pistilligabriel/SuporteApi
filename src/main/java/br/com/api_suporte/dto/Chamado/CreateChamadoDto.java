@@ -1,4 +1,4 @@
-package br.com.api_suporte.dto;
+package br.com.api_suporte.dto.Chamado;
 
 import lombok.*;
 
