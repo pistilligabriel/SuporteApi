@@ -1,9 +1,8 @@
 package br.com.api_suporte.dto.modelMapper;
 
-import br.com.api_suporte.dto.CreateChamadoDto;
-import br.com.api_suporte.dto.ResponseChamadoDto;
+import br.com.api_suporte.dto.Chamado.CreateChamadoDto;
+import br.com.api_suporte.dto.Chamado.ResponseChamadoDto;
 import br.com.api_suporte.model.Chamado;
-import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

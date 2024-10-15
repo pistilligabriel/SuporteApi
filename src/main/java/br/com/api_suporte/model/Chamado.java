@@ -27,6 +27,12 @@ public class Chamado implements Serializable {
     @Column(name = "TITULO")
     private String titulo;
 
+    @Column(name="CLIENTE")
+    private String cliente;
+
+    @Column(name = "SOLICITANTE")
+    private String solicitante;
+
     @Column(name = "DESCRICAO")
     private String descricao;
 

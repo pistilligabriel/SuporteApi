@@ -1,4 +1,4 @@
-package br.com.api_suporte.dto;
+package br.com.api_suporte.dto.Chamado;
 
 import lombok.*;
 
@@ -8,7 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CreateChamadoDto {
+    private String cliente;
     private String titulo;
+    private String solicitante;
     private String descricao;
     private String prioridade;
     private String responsavel;
