@@ -2,6 +2,7 @@ package br.com.api_suporte.model;
 
 import br.com.api_suporte.model.enums.Prioridade;
 import br.com.api_suporte.model.enums.Status;
+import br.com.api_suporte.utils.DateFormatter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +15,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "chamados")
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class Chamado implements Serializable {
-    @Id
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODIGO")
     private Long codigo;
@@ -42,17 +45,89 @@ public class Chamado implements Serializable {
     private Status status = Status.NOVO;
 
     @Column(name = "DATA_CRIACAO")
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
 
     @Column(name = "DATA_VERSAO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime dataVersao = LocalDateTime.now() ;
+    private String dataVersao = DateFormatter.formatLocalDateTime(LocalDateTime.now()) ;
 
     @Column(name = "DATA_CONCLUSAO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime dataConclusao;
+    private String dataConclusao;
+    
 
-    @Override
+    public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public Prioridade getPrioridade() {
+		return prioridade;
+	}
+
+	public void setPrioridade(Prioridade prioridade) {
+		this.prioridade = prioridade;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getDataVersao() {
+		return dataVersao;
+	}
+
+	public void setDataVersao(String dataVersao) {
+		this.dataVersao = dataVersao;
+	}
+
+	public String getDataConclusao() {
+		return dataConclusao;
+	}
+
+	public void setDataConclusao(String dataConclusao) {
+		this.dataConclusao = dataConclusao;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
