@@ -1,23 +1,34 @@
 package br.com.api_suporte.model;
 
-import br.com.api_suporte.model.enums.Status;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import br.com.api_suporte.model.enums.Status;
+import br.com.api_suporte.model.enums.Tipo;
+import br.com.api_suporte.utils.DateFormatter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Entity
 @Table(name = "usuarios")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Usuario implements Serializable {
-    @Id
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CODIGO")
     private Long codigo;
@@ -26,9 +37,10 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ATIVO;
 
-    @OneToOne(mappedBy = "usuario")
-    private Integrante integrante;
-
+    @Column(name="TIPO")
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo = Tipo.FUNCIONARIO;
+    
     @Column(name = "LOGIN")
     private String login;
 
@@ -36,11 +48,10 @@ public class Usuario implements Serializable {
     private String password;
 
     @Column(name = "DATA_CRIACAO")
-    private LocalDateTime dataCriacao = LocalDateTime.now();
-    
+    private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
     
 
-    public Long getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
@@ -56,12 +67,12 @@ public class Usuario implements Serializable {
 		this.status = status;
 	}
 
-	public Integrante getIntegrante() {
-		return integrante;
+	public Tipo getTipo() {
+		return tipo;
 	}
 
-	public void setIntegrante(Integrante integrante) {
-		this.integrante = integrante;
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getLogin() {
@@ -80,11 +91,11 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public LocalDateTime getDataCriacao() {
+	public String getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDateTime dataCriacao) {
+	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 

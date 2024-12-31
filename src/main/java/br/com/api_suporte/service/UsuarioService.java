@@ -1,9 +1,10 @@
 package br.com.api_suporte.service;
 
-import br.com.api_suporte.model.Usuario;
-import br.com.api_suporte.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import br.com.api_suporte.model.Usuario;
+import br.com.api_suporte.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {

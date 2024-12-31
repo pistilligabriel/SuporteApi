@@ -1,15 +1,13 @@
 package br.com.api_suporte.dto.modelMapper;
 
-import br.com.api_suporte.dto.Integrante.CreateIntegranteDto;
-import br.com.api_suporte.dto.Integrante.ResponseIntegranteDto;
-import br.com.api_suporte.dto.Usuario.CreateUsuarioDto;
-import br.com.api_suporte.dto.Usuario.ResponseUsuarioDto;
-import br.com.api_suporte.model.Integrante;
-import br.com.api_suporte.model.Usuario;
-import org.modelmapper.ModelMapper;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+
+import br.com.api_suporte.dto.Usuario.CreateUsuarioDto;
+import br.com.api_suporte.dto.Usuario.ResponseUsuarioDto;
+import br.com.api_suporte.model.Usuario;
 
 public class UsuarioMapper {
     public static Usuario toUsuario(CreateUsuarioDto usuarioDto){

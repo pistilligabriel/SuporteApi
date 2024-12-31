@@ -1,15 +1,30 @@
 package br.com.api_suporte.dto.Usuario;
 
-import br.com.api_suporte.model.Integrante;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Getter
-@Setter
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class CreateUsuarioDto {
-    private Integrante integrante;
     private String login;
     private String password;
+    
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
+    
 }

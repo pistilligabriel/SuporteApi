@@ -1,13 +1,8 @@
 package br.com.api_suporte.dto.Chamado;
 
-import lombok.*;
-
-import java.time.LocalDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @AllArgsConstructor

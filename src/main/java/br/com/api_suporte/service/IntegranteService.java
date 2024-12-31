@@ -1,6 +1,6 @@
 package br.com.api_suporte.service;
 
-import br.com.api_suporte.model.Integrante;
+import br.com.api_suporte.model.Cliente;
 import br.com.api_suporte.model.enums.Tipo;
 import br.com.api_suporte.repository.IntegranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +14,22 @@ public class IntegranteService {
     @Autowired
     private IntegranteRepository integranteRepository;
 
-    public Integrante criarIntegrante(Integrante integrante){
+    public Cliente criarIntegrante(Cliente integrante){
         return integranteRepository.save(integrante);
     }
 
-    public List<Integrante> buscarIntegrantes(){
+    public List<Cliente> buscarIntegrantes(){
         return integranteRepository.findAll();
     }
 
-    public Integrante buscarPorId(Long id){
+    public Cliente buscarPorId(Long id){
         return integranteRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Integrante não encontrado!")
         );
     }
 
-    public Integrante alterarTipo(Long id){
-        Integrante integrante = buscarPorId(id);
+    public Cliente alterarTipo(Long id){
+        Cliente integrante = buscarPorId(id);
 
         if(integrante.getTipo().equals(Tipo.CLIENTE)) {
             integrante.setTipo(Tipo.FUNCIONARIO);
