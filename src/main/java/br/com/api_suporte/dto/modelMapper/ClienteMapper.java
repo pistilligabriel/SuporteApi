@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClienteMapper {
-    public static Cliente toIntegrante(CreateClienteDto integranteDto){
-        return new ModelMapper().map(integranteDto,Cliente.class);
+    public static Cliente toCliente(CreateClienteDto clienteDto){
+        return new ModelMapper().map(clienteDto,Cliente.class);
     }
 
-    public static ResponseClienteDto toDto(Cliente integrante){
-        return new ModelMapper().map(integrante,ResponseClienteDto.class);
+    public static ResponseClienteDto toDto(Cliente cliente){
+        return new ModelMapper().map(cliente,ResponseClienteDto.class);
     }
 
-    public static List<ResponseClienteDto> toListDto(List<Cliente> integrantes){
-        return integrantes.stream().map(integrante -> toDto(integrante)).collect(Collectors.toList());
+    public static List<ResponseClienteDto> toListDto(List<Cliente> clientes){
+        return clientes.stream().map(cliente -> toDto(cliente)).collect(Collectors.toList());
     }
 }

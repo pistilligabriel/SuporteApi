@@ -10,6 +10,7 @@ import lombok.*;
 public class ResponseUsuarioDto {
 	private Long codigo;
 	private String status;
+	private String nome;
 	private String login;
 	private String dataCriacao;
 }

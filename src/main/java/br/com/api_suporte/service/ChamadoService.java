@@ -26,8 +26,8 @@ public class ChamadoService {
         }
         // verificar se foi informado responsável se não foi, setar usuário que abriu
         // chamado como responsável
-        if (chamado.getResponsavel() == null || chamado.getResponsavel().isBlank()) {
-            chamado.setResponsavel("Usuario1");
+        if (chamado.getResponsavel() == null) {
+            chamado.setResponsavel(chamado.getResponsavel());
         }
         return chamadoRepository.save(chamado);
     }

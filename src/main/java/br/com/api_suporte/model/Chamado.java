@@ -16,18 +16,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "chamados")
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Chamado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+		@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODIGO")
     private Long codigo;
@@ -36,7 +39,7 @@ public class Chamado implements Serializable {
     private String titulo;
 
     @Column(name="CLIENTE")
-    private String cliente;
+    private Cliente cliente;
 
     @Column(name = "SOLICITANTE")
     private String solicitante;
@@ -45,7 +48,7 @@ public class Chamado implements Serializable {
     private String descricao;
 
     @Column(name = "RESPONSAVEL")
-    private String responsavel;
+    private Usuario responsavel;
 
     @Column(name = "PRIORIDADE")
     @Enumerated(EnumType.STRING)
@@ -63,80 +66,6 @@ public class Chamado implements Serializable {
 
     @Column(name = "DATA_CONCLUSAO")
     private String dataConclusao;
-    
-
-    public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getResponsavel() {
-		return responsavel;
-	}
-
-	public void setResponsavel(String responsavel) {
-		this.responsavel = responsavel;
-	}
-
-	public Prioridade getPrioridade() {
-		return prioridade;
-	}
-
-	public void setPrioridade(Prioridade prioridade) {
-		this.prioridade = prioridade;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	
-	public String getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(String dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public String getDataVersao() {
-		return dataVersao;
-	}
-
-	public void setDataVersao(String dataVersao) {
-		this.dataVersao = dataVersao;
-	}
-
-	public String getDataConclusao() {
-		return dataConclusao;
-	}
-
-	public void setDataConclusao(String dataConclusao) {
-		this.dataConclusao = dataConclusao;
-	}
 
 	@Override
     public boolean equals(Object o) {

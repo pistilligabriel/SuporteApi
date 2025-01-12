@@ -12,6 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class CreateUsuarioDto {
+	private String nome;
 	private String login;
 	private String password;
 }

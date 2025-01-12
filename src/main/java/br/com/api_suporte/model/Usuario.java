@@ -43,6 +43,9 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo = Tipo.FUNCIONARIO;
 
+	@Column(name = "NOME")
+	private String nome;
+
 	@Column(name = "LOGIN")
 	private String login;
 
@@ -51,54 +54,6 @@ public class Usuario implements Serializable {
 
 	@Column(name = "DATA_CRIACAO")
 	private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
-
-	public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Tipo getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(String dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
 
 	@Override
 	public boolean equals(Object o) {
