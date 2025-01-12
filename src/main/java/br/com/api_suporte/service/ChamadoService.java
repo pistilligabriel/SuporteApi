@@ -1,15 +1,26 @@
 package br.com.api_suporte.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.api_suporte.model.Chamado;
 import br.com.api_suporte.model.enums.Prioridade;
 import br.com.api_suporte.model.enums.Status;
 import br.com.api_suporte.repository.ChamadoRepository;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+=======
+import br.com.api_suporte.utils.DateFormatter;
+>>>>>>> 53e9479460c4d2d76f073f2aa6360be2166fcfc9
 
 @Service
 public class ChamadoService {
@@ -48,7 +59,7 @@ public class ChamadoService {
             throw new RuntimeException("Chamado cancelado não permite alteração de status!");
         }
         chamado.setStatus(status);
-        chamado.setDataVersao(LocalDateTime.now());
+        chamado.setDataVersao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
         return chamado;
     }
 
@@ -71,7 +82,7 @@ public class ChamadoService {
         }
         System.out.println("Chamado cancelado");
         chamado.setStatus(Status.CANCELADO);
-        chamado.setDataConclusao(LocalDateTime.now());
+        chamado.setDataConclusao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
         return chamado;
     }
 

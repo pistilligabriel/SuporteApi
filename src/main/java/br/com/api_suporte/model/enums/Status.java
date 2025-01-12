@@ -1,8 +1,5 @@
 package br.com.api_suporte.model.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum Status {
     NOVO("Novo"),
     EM_ANDAMENTO("Em_Andamento"),
@@ -16,4 +13,10 @@ public enum Status {
     Status(String descricao){
         this.descricao = descricao;
     }
+
+	public String getDescricao() {
+		return descricao;
+	}
+    
+    
 }
