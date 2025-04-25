@@ -1,20 +1,18 @@
 package br.com.api_suporte.model;
 
+import br.com.api_suporte.model.enums.Setor;
 import br.com.api_suporte.model.enums.Status;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import br.com.api_suporte.model.enums.Tipo;
 import br.com.api_suporte.utils.DateFormatter;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,6 +26,7 @@ import lombok.ToString;
 @ToString
 public class Usuario implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,10 +37,6 @@ public class Usuario implements Serializable {
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
-
-	@Column(name = "TIPO")
-	@Enumerated(EnumType.STRING)
-	private Tipo tipo = Tipo.FUNCIONARIO;
 
 	@Column(name = "NOME")
 	private String nome;
@@ -54,6 +49,13 @@ public class Usuario implements Serializable {
 
 	@Column(name = "DATA_CRIACAO")
 	private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
+
+	@Column(name = "SETOR")
+	@Enumerated(EnumType.STRING)
+	private Setor setor;
+
+	@OneToMany(mappedBy = "responsavel")
+	private List<Chamado> chamados = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object o) {

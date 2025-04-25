@@ -1,5 +1,6 @@
 package br.com.api_suporte.dto.Chamado;
 
+import br.com.api_suporte.model.enums.Setor;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 public class ResponseChamadoDto {
 	private Long codigo;
-	private String cliente;
+	private Setor setorId;
 	private String solicitante;
 	private String titulo;
 	private String descricao;

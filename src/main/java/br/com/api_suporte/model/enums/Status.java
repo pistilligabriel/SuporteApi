@@ -1,12 +1,15 @@
 package br.com.api_suporte.model.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Status {
     NOVO("Novo"),
     EM_ANDAMENTO("Em_Andamento"),
     CONCLUIDO("Concluido"),
     CANCELADO("Cancelado"),
     ATIVO("Ativo"),
-    DESATIVADO("Desativado");
+    INATIVO("Inativo");
 
     private final String descricao;
 
@@ -14,9 +17,5 @@ public enum Status {
         this.descricao = descricao;
     }
 
-	public String getDescricao() {
-		return descricao;
-	}
-    
-    
+
 }
