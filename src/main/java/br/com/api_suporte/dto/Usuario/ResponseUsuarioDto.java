@@ -12,5 +12,6 @@ public class ResponseUsuarioDto {
 	private String status;
 	private String nome;
 	private String login;
+	private String tipo;
 	private String dataCriacao;
 }

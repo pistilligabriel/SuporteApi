@@ -3,28 +3,27 @@ package br.com.api_suporte.model;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import br.com.api_suporte.model.enums.Prioridade;
 import br.com.api_suporte.model.enums.Setor;
 import br.com.api_suporte.model.enums.Status;
 import br.com.api_suporte.utils.DateFormatter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "chamados")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chamado implements Serializable {
-
-	@Serial
-    private static final long serialVersionUID = 1L;
+public class Chamado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,7 @@ public class Chamado implements Serializable {
     private String titulo;
 
     @Column(name = "SETOR")
+    @Enumerated(EnumType.STRING)
     private Setor setor;
 
     @Column(name = "SOLICITANTE")
@@ -43,8 +43,9 @@ public class Chamado implements Serializable {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "RESPONSAVEL_ID")
+    @JsonIgnore
     private Usuario responsavel;
 
     @Column(name = "PRIORIDADE")
@@ -64,16 +65,8 @@ public class Chamado implements Serializable {
     @Column(name = "DATA_CONCLUSAO")
     private String dataConclusao;
 
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Chamado chamado = (Chamado) o;
-        return Objects.equals(codigo, chamado.codigo);
-    }
+    @OneToMany(mappedBy = "chamado", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Nota> notas = new ArrayList<>();
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(codigo);
-    }
+
 }

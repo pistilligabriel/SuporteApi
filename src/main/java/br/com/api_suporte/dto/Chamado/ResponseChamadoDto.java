@@ -4,6 +4,7 @@ import br.com.api_suporte.model.enums.Setor;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,13 +13,14 @@ import java.time.LocalDateTime;
 @ToString
 public class ResponseChamadoDto {
 	private Long codigo;
-	private Setor setorId;
+	private Setor setor;
 	private String solicitante;
 	private String titulo;
 	private String descricao;
 	private String prioridade;
 	private String status;
 	private String responsavel;
-	private LocalDateTime dataCriacao;
-	private LocalDateTime dataConclusao;
+	private String dataCriacao;
+	private String dataConclusao;
+	private List<NotaResponseDto> notas;
 }
