@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class IniciarEditarChamadoDto {
     private Status status;
-
+    private String responsavel;
 }

@@ -1,20 +1,16 @@
 package br.com.api_suporte.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import br.com.api_suporte.model.enums.Prioridade;
 import br.com.api_suporte.model.enums.Setor;
 import br.com.api_suporte.model.enums.Status;
-import br.com.api_suporte.utils.DateFormatter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "chamados")
@@ -57,13 +53,16 @@ public class Chamado {
     private Status status = Status.NOVO;
 
     @Column(name = "DATA_CRIACAO")
-    private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Column(name = "DATA_VERSAO")
-    private String dataVersao = DateFormatter.formatLocalDateTime(LocalDateTime.now()) ;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataVersao = LocalDateTime.now();
 
     @Column(name = "DATA_CONCLUSAO")
-    private String dataConclusao;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataConclusao;
 
     @OneToMany(mappedBy = "chamado", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Nota> notas = new ArrayList<>();

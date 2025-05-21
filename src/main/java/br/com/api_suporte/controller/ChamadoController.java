@@ -79,4 +79,9 @@ public class ChamadoController {
         Nota nota = chamadoService.adicionarNota(codigo, chamadoMapper.toNota(notaDto));
         return ResponseEntity.ok(chamadoMapper.toDto(nota));
     }
+
+    @GetMapping("/contagem-por-status-e-mes")
+    public ResponseEntity<List<ChamadoStatusMesDto>> getContagemPorStatusEMes() {
+        return ResponseEntity.ok(chamadoService.getContagemPorStatusEMes());
+    }
 }

@@ -1,30 +1,32 @@
 package br.com.api_suporte.service;
 
-import java.net.UnknownHostException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.net.InetAddress;
-
-import br.com.api_suporte.dto.Chamado.NotaChamadoDto;
+import br.com.api_suporte.dto.Chamado.ChamadoStatusMesDto;
+import br.com.api_suporte.model.Chamado;
 import br.com.api_suporte.model.Nota;
 import br.com.api_suporte.model.Usuario;
+import br.com.api_suporte.model.enums.Prioridade;
+import br.com.api_suporte.model.enums.Status;
+import br.com.api_suporte.repository.ChamadoRepository;
 import br.com.api_suporte.repository.NotaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.api_suporte.model.Chamado;
-import br.com.api_suporte.model.enums.Prioridade;
-import br.com.api_suporte.model.enums.Status;
-import br.com.api_suporte.repository.ChamadoRepository;
-import br.com.api_suporte.utils.DateFormatter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChamadoService {
+
+    Logger logger = LoggerFactory.getLogger(ChamadoService.class);
 
     @Autowired
     private UsuarioService usuarioService;
@@ -41,6 +43,7 @@ public class ChamadoService {
             chamado.setPrioridade(Prioridade.NORMAL);
         }
 
+        logger.info("Chamado: {}", chamado.getDataCriacao());
         return chamadoRepository.save(chamado);
     }
 
@@ -74,7 +77,7 @@ public class ChamadoService {
         }
         chamado.setStatus(status);
         chamado.setResponsavel(null);
-        chamado.setDataVersao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
+        chamado.setDataVersao(LocalDateTime.now());
         return chamado;
     }
 
@@ -100,13 +103,12 @@ public class ChamadoService {
         // Buscar o usuário logado no banco de dados (você pode precisar de um serviço de usuário para isso)
         Usuario usuarioLogado = usuarioService.buscarPorLogin(login);  // Supondo que você tenha um serviço de usuário
         // para buscar pelo login
-
         if (usuarioLogado == null) {
             throw new RuntimeException("Usuário logado não encontrado");
         }
         chamado.setResponsavel(usuarioLogado);
         chamado.setStatus(cham.getStatus());
-        chamado.setDataVersao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
+        chamado.setDataVersao(LocalDateTime.now());
         return chamadoRepository.save(chamado);
     }
 
@@ -117,8 +119,8 @@ public class ChamadoService {
             throw new RuntimeException("Chamado cancelado não é possível iniciar");
         }
         chamado.setStatus(cham.getStatus());
-        chamado.setDataVersao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
-        chamado.setDataConclusao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
+        chamado.setDataVersao(LocalDateTime.now());
+        chamado.setDataConclusao(LocalDateTime.now());
         return chamadoRepository.save(chamado);
     }
 
@@ -131,7 +133,7 @@ public class ChamadoService {
         }
         System.out.println("Chamado cancelado");
         chamado.setStatus(Status.CANCELADO);
-        chamado.setDataConclusao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
+        chamado.setDataConclusao(LocalDateTime.now());
         return chamado;
     }
 
@@ -143,8 +145,26 @@ public class ChamadoService {
         note.setAutor(nota.getAutor());
         note.setChamado(chamado);
         note.setConteudo(nota.getConteudo());
-        note.setDataCriacao(DateFormatter.formatLocalDateTime(LocalDateTime.now()));
+        note.setDataCriacao(LocalDateTime.now());
         // Salva o chamado atualizado no banco de dados
         return notaRepository.save(note);
+    }
+
+    public List<ChamadoStatusMesDto> contarChamadosPorStatusEMes() {
+        List<Object[]> resultados = chamadoRepository.contarChamadosPorStatusEMesRaw();
+
+        return resultados.stream().map(obj -> {
+            String status = String.valueOf(obj[0]);
+            String mesStr = String.valueOf(obj[1]); // Ex: "2025-05"
+            Long total = ((Number) obj[2]).longValue();
+
+            YearMonth mes = YearMonth.parse(mesStr); // Convertendo para YearMonth
+
+            return new ChamadoStatusMesDto(status, mes, total);
+        }).collect(Collectors.toList());
+    }
+
+    public List<ChamadoStatusMesDto> getContagemPorStatusEMes() {
+        return contarChamadosPorStatusEMes();
     }
 }

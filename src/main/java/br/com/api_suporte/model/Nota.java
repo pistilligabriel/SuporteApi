@@ -1,8 +1,6 @@
 package br.com.api_suporte.model;
 
-import br.com.api_suporte.model.enums.Setor;
-import br.com.api_suporte.utils.DateFormatter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +28,8 @@ public class Nota {
     private String autor;
 
     @Column(name = "DATA_CRIACAO")
-    private String dataCriacao = DateFormatter.formatLocalDateTime(LocalDateTime.now());
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "chamado_codigo", nullable = false)
