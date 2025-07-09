@@ -140,15 +140,6 @@ src/
 
 ---
 
-## 🧪 Rodando Testes
-
-Execute os testes automatizados com:
-
-```bash
-./mvnw test
-```
-
----
 
 ## 📄 Licença
 
