@@ -13,7 +13,6 @@ API REST desenvolvida em Java com Spring Boot para **gerenciamento de chamados d
 - Spring Security  
 - JWT (Auth0 Java JWT)  
 - MySQL  
-- WebSocket  
 - Lombok  
 - Swagger (SpringDoc OpenAPI)  
 - ModelMapper  
@@ -136,7 +135,6 @@ src/
 - ✅ Filtragem por setor, prioridade e status  
 - ✅ Autenticação JWT  
 - ✅ Documentação Swagger  
-- 🚧 Integração com WebSocket para notificações (em desenvolvimento)
 
 ---
 
